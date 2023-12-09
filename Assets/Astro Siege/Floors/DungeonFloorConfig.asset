@@ -19,8 +19,8 @@ MonoBehaviour:
   enemyConfigs:
   - enemyPrefab: {fileID: 6372369767539882609, guid: 87cb0f3f85ca77948a9d9a1f7a8a0650,
       type: 3}
-    total: 25
+    total: 10
     maxCount: 5
-    minLevel: 1
-    maxLevel: 5
+    minLevel: 0
+    maxLevel: 0
   bossPrefab: {fileID: 0}

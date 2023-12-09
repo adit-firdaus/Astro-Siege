@@ -107,6 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddba9a2e3290454197faa1d8082b889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialEnemies: []
+  activeEnemies: []
+  isPlaying: 0
 --- !u!1001 &4886440567387165621
 PrefabInstance:
   m_ObjectHideFlags: 0

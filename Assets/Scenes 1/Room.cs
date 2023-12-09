@@ -57,7 +57,8 @@ public class Room : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Play();
+            // Agak kurang rapi
+            Invoke("Play", 2f);
         }
     }
 }

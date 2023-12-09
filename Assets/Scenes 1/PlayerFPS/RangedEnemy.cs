@@ -25,7 +25,7 @@ public class RangedEnemy : Enemy
 
         if (shottTimer >= shootInterval)
         {
-            animator.SetTrigger("Shoot");
+            // animator.SetTrigger("Shoot");
             shottTimer = 0f;
         }
 
