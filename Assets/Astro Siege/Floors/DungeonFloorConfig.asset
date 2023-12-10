@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d085e5d123bdb4439338f504220f19a, type: 3}
   m_Name: DungeonFloorConfig
   m_EditorClassIdentifier: 
-  totalRoom: 18
+  totalRoom: 7
   totalTreasureRoom: 1
   playerPrefab: {fileID: 4569305410560337450, guid: 3755287bbc71d7f4c8bdb6cfd756e6a7,
     type: 3}

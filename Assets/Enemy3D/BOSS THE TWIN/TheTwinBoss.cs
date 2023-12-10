@@ -7,6 +7,20 @@ public class TheTwinBoss : EnemyBoss
     public List<GameObject> MiniBosses;
     public GameObject BloodEffect;
     public float speed = 10f;
+    public float forceChangeDirectionTime = 2;
+
+    float time;
+
+    public void Update()
+    {
+        time += Time.deltaTime;
+
+        if (time >= forceChangeDirectionTime)
+        {
+            time = 0;
+            Changedirection();
+        }
+    }
 
     private void FixedUpdate()
     {
