@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d085e5d123bdb4439338f504220f19a, type: 3}
   m_Name: DungeonFloorConfig
   m_EditorClassIdentifier: 
-  totalRoom: 7
+  totalRoom: 36
   totalTreasureRoom: 1
   playerPrefab: {fileID: 4569305410560337450, guid: 3755287bbc71d7f4c8bdb6cfd756e6a7,
     type: 3}
@@ -22,7 +22,7 @@ MonoBehaviour:
     amountRange:
       Min: 1
       Max: 4
-    amountProbability: 0.5
+    amountProbability: 0.705
     depthRange:
       Min: 1
       Max: 999
@@ -34,9 +34,9 @@ MonoBehaviour:
     amountRange:
       Min: 1
       Max: 4
-    amountProbability: 0.5
+    amountProbability: 0.3
     depthRange:
-      Min: 2
+      Min: 1
       Max: 999
     levelRange:
       Min: 1
@@ -46,9 +46,9 @@ MonoBehaviour:
     amountRange:
       Min: 1
       Max: 2
-    amountProbability: 0.5
+    amountProbability: 0.539
     depthRange:
-      Min: 3
+      Min: 1
       Max: 999
     levelRange:
       Min: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
       Max: 2
     amountProbability: 0.5
     depthRange:
-      Min: 5
+      Min: 1
       Max: 999
     levelRange:
       Min: 1
@@ -70,9 +70,9 @@ MonoBehaviour:
     amountRange:
       Min: 1
       Max: 3
-    amountProbability: 0.5
+    amountProbability: 0.607
     depthRange:
-      Min: 8
+      Min: 1
       Max: 999
     levelRange:
       Min: 1

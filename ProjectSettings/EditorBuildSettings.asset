@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/DuGen Exercise.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/MainMenu/MainMenu.unity
+    guid: e10b8845feb500a4683f096620923b5f
+  - enabled: 1
+    path: Assets/Scenes/Floor1.unity
+    guid: 9eff19162fda2d74fa954adbddb804f0
   m_configObjects: {}

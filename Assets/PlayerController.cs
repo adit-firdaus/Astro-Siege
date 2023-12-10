@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using MyBox;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerController : MonoBehaviour
     private float slideTime;
     private Vector3 baseXY;
     public GameObject Slide;
-
+    public bool isDead;
 
     private void Start()
     {
@@ -36,6 +37,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isDead)
+            return;
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime;
@@ -155,6 +159,7 @@ public class Weapon : MonoBehaviour
     public int maxAmmo = 30; // Maximum ammo capacity
     public int currentAmmo; // Current ammo count
     private bool isReloading;
+    public Text textUI;
     private void Start()
     {
 
@@ -170,6 +175,7 @@ public class Weapon : MonoBehaviour
         recoilBody.localRotation = Quaternion.Euler(recoilValue, 0, 0);
         recoilBody.localPosition = Vector3.forward * recoilValue * recoilPower;
         recoilValue = Mathf.Lerp(recoilValue, 0, Time.deltaTime * 10);
+        textUI.text = currentAmmo.ToString()+ "/" + maxAmmo.ToString();
     }
 
     public void SetFiring(bool isFiring)
@@ -232,6 +238,7 @@ public class Bullet : MonoBehaviour
     public float lifetime = 5f;
     public GameObject impactEffect;
     public GameObject bloodEffect;
+    
 
     float time;
 

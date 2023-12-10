@@ -13,7 +13,8 @@ public class TankEnemy : Enemy
     public Vector3 moveDirection;
     public Animator animator;
     public bool isAttacking = false;
-
+    public AudioSource As;
+    public AudioClip RoarSound;
     public bool canAttackPlayer = false;
 
     private void Start()
@@ -39,10 +40,14 @@ public class TankEnemy : Enemy
             canAttackPlayer = Vector3.Distance(transform.position, player.transform.position) < attackRange;
             // animator.SetBool("CanAttack", canAttackPlayer);
         }
-
+        bool isOnce = false;
         if (canAttackPlayer == false && isAttacking == false)
         {
             Chase();
+            if (isOnce == false)
+            {
+                As.PlayOneShot(RoarSound);
+            }
         }
 
     }
@@ -68,7 +73,7 @@ public class TankEnemy : Enemy
     public void Attack()
     {
         isAttacking = true;
-        Debug.Log("Attack");
+        animator.SetTrigger("Attack");
     }
 
     public void endAttack()

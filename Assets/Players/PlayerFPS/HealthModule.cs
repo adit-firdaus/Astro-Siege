@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class HealthModule : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class HealthModule : MonoBehaviour
     public UnityEvent onDie;
     public AudioSource As;
     public AudioClip ImpactEffect;
+    public Slider HealthBar;
+    public GameObject DeathScreen;
+    public GameObject deathHealth;
 
     private void Awake()
     {
@@ -23,11 +27,24 @@ public class HealthModule : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
-
+        if (deathHealth)
+        {
+            deathHealth.SetActive(true);
+            Invoke("Matiin", 2f);
+        }
         if (health <= 0)
         {
             onDie.Invoke();
+            if (DeathScreen)
+            {
+                DeathScreen.SetActive(true);
+                GameObject.FindObjectOfType<PlayerController>().isDead = true;
+            }
         }
+    }
+    public void Matiin()
+    {
+        deathHealth.SetActive(false);
     }
 
     public void Heal(float amount)
@@ -40,4 +57,13 @@ public class HealthModule : MonoBehaviour
     {
         if (As && ImpactEffect) As.PlayOneShot(ImpactEffect);
     }
+    private void Update()
+    {
+        if (HealthBar)
+        {
+            HealthBar.value = health;
+            HealthBar.maxValue = maxHealth;
+        }
+    }
+
 }

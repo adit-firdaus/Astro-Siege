@@ -56,9 +56,10 @@ public class RangedEnemy : Enemy
         {
             shottTimer += Time.deltaTime;
         }
-        
 
-        gameObject.transform.LookAt(player.transform.position);
+        Vector3 Dir = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+        gameObject.transform.LookAt(Dir);
+        
     }
 
     public void Shoot()

@@ -8,11 +8,12 @@ public class Tombol : MonoBehaviour
     public GameObject DifficultySet;
     public GameObject Credit;
     public GameObject MainMenu;
-
+    public GameObject PausedObject;
     public void PlayGame()
     {
-        DifficultySet.SetActive(!DifficultySet.activeSelf);
-        MainMenu.SetActive(!MainMenu.activeSelf);
+        //   DifficultySet.SetActive(!DifficultySet.activeSelf);
+        //    MainMenu.SetActive(!MainMenu.activeSelf);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void showCredit()
     {
@@ -40,5 +41,30 @@ public class Tombol : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+    public void Paused()
+    {
+        Time.timeScale = 0;
+        PausedObject.SetActive(true);
+    }
+    public void resume()
+    {
+        PausedObject.SetActive(false);
+        Time.timeScale = 1;
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+    }
+    public void Update()
+    {
+        if(SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Paused();
+            }
+        }
     }
 }
