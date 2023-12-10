@@ -39,9 +39,6 @@ public class SonarWave : MonoBehaviour
                 shooted = true;
             }
         }
-
-
-
     }
     private void OnCollisionEnter(Collision collision)
     {

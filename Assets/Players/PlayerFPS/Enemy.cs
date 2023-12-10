@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using MyBox;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthModule), typeof(Rigidbody))]
 public class Enemy : MonoBehaviour
 {
+    [ReadOnly] public Room room;
     public static Player player => Player.Instance;
     protected HealthModule healthModule;
     protected Rigidbody rb;

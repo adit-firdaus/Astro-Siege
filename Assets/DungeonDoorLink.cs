@@ -23,7 +23,7 @@ public class DungeonDoorLink : MonoBehaviour, IDungeonCompleteReceiver
         tiles = dungeon.AllTiles.ToList();
     }
 
-    public void SetTileDoors(Tile tile, bool state)
+    public void SetOpen(Tile tile, bool state)
     {
         foreach (var doorway in tile.UsedDoorways)
         {

@@ -12,15 +12,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d085e5d123bdb4439338f504220f19a, type: 3}
   m_Name: DungeonFloorConfig
   m_EditorClassIdentifier: 
-  totalRoom: 5
+  totalRoom: 7
   totalTreasureRoom: 1
   playerPrefab: {fileID: 4569305410560337450, guid: 3755287bbc71d7f4c8bdb6cfd756e6a7,
     type: 3}
   enemyConfigs:
+  - enemyPrefab: {fileID: 5869118970608201190, guid: d844984c33a1ffd45a85bcd5865bf364,
+      type: 3}
+    amountRange:
+      Min: 1
+      Max: 4
+    amountProbability: 0.5
+    depthRange:
+      Min: 1
+      Max: 999
+    levelRange:
+      Min: 1
+      Max: 1
   - enemyPrefab: {fileID: 6372369767539882609, guid: 87cb0f3f85ca77948a9d9a1f7a8a0650,
       type: 3}
-    total: 25
-    maxCount: 5
-    minLevel: 1
-    maxLevel: 1
+    amountRange:
+      Min: 1
+      Max: 4
+    amountProbability: 0.5
+    depthRange:
+      Min: 2
+      Max: 999
+    levelRange:
+      Min: 1
+      Max: 1
+  - enemyPrefab: {fileID: 5669224797610913145, guid: eaebbd2567b35174fad1c20b93011568,
+      type: 3}
+    amountRange:
+      Min: 1
+      Max: 2
+    amountProbability: 0.5
+    depthRange:
+      Min: 3
+      Max: 999
+    levelRange:
+      Min: 1
+      Max: 1
+  - enemyPrefab: {fileID: 627931147372752477, guid: c72e89fb4cc2ac049b604ab4e8cbe7b1,
+      type: 3}
+    amountRange:
+      Min: 1
+      Max: 2
+    amountProbability: 0.5
+    depthRange:
+      Min: 5
+      Max: 999
+    levelRange:
+      Min: 1
+      Max: 1
+  - enemyPrefab: {fileID: 3656760677317141476, guid: 3678d04f2e8e02343a225478a2e58bc4,
+      type: 3}
+    amountRange:
+      Min: 1
+      Max: 3
+    amountProbability: 0.5
+    depthRange:
+      Min: 8
+      Max: 999
+    levelRange:
+      Min: 1
+      Max: 1
   bossPrefab: {fileID: 0}

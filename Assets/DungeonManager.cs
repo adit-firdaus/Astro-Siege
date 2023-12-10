@@ -9,6 +9,18 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour, IDungeonCompleteReceiver
 {
+    static DungeonManager instance;
+    public static DungeonManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<DungeonManager>();
+            }
+            return instance;
+        }
+    }
     public RuntimeDungeon runtimeDungeon;
     public DungeonFloorConfig dungeonFloorConfig;
 
@@ -17,18 +29,16 @@ public class DungeonManager : MonoBehaviour, IDungeonCompleteReceiver
 
     public DungeonFlow dungeonFlow => runtimeDungeon.Generator.DungeonFlow;
 
-    private void Start()
+    private void Awake()
     {
-        Init();
+
     }
 
-    public void Init()
+    private void Start()
     {
         var totalRoom = dungeonFloorConfig.totalRoom;
 
         dungeonFlow.Length = new IntRange(totalRoom, totalRoom);
-
-        dungeonEnemies = dungeonFloorConfig.GetEnemyPrefabs();
 
         runtimeDungeon.Generate();
     }
@@ -39,12 +49,13 @@ public class DungeonManager : MonoBehaviour, IDungeonCompleteReceiver
 
         rooms = tiles.Select(x => x.GetComponentInChildren<Room>()).ToList();
 
-        for (int i = 0; i < rooms.Count; i++)
+        foreach (var room in rooms)
         {
-            var room = rooms[i];
-            var enemies = dungeonEnemies[i];
+            var enemyConfigs = dungeonFloorConfig.GetRooomEnemyConfig(room.tile.Placement.PathDepth);
 
-            room.initialEnemies = enemies;
+            room.enemyConfigs = enemyConfigs;
         }
+
+        DungeonDoorLink.Instance.SetOpen(rooms[0].tile, true);
     }
 }

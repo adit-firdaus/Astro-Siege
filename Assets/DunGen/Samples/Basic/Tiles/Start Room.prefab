@@ -108,6 +108,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddba9a2e3290454197faa1d8082b889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyConfigs: []
+  activeEnemies: []
+  isBossRoom: 0
+  battleArena: 0
+  isPlaying: 0
+  isCleared: 0
+  roomDepth: 0
+  tile: {fileID: 0}
 --- !u!1 &2006207808111254970
 GameObject:
   m_ObjectHideFlags: 0

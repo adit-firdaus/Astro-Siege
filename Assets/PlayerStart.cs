@@ -10,6 +10,6 @@ public class PlayerStart : MonoBehaviour
     {
         Instantiate(playerPrefab, transform.position + Vector3.up, transform.rotation);
 
-        DungeonDoorLink.Instance.SetTileDoors(DungeonDoorLink.Instance.tiles[0], true);
+        DungeonDoorLink.Instance.SetOpen(DungeonDoorLink.Instance.tiles[0], true);
     }
 }
