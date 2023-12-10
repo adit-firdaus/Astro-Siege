@@ -59,8 +59,12 @@ public class Room : MonoBehaviour
                 var amount = enemyConfig.GetRandomAmount();
                 for (int i = 0; i < amount; i++)
                 {
-                    var position = transform.position + new Vector3(Random.Range(-tileTrigger.size.x / 2, tileTrigger.size.x / 2), 0, Random.Range(-tileTrigger.size.z / 2, tileTrigger.size.z / 2));
+                    Vector3 localPosition = new Vector3(Random.Range(-tileTrigger.size.x / 2, tileTrigger.size.x / 2), 0.25f, Random.Range(-tileTrigger.size.z / 2, tileTrigger.size.z / 2));
+
+                    Vector3 position = transform.TransformPoint(localPosition);
+
                     var enemy = Instantiate(enemyConfig.enemyPrefab, position, Quaternion.identity);
+
                     enemy.transform.parent = transform;
                     enemy.GetComponent<Enemy>().room = this;
                     activeEnemies.Add(enemy.GetComponent<Enemy>());

@@ -24,6 +24,13 @@ public class PlayerController : MonoBehaviour
     public GameObject Slide;
     public bool isDead;
 
+    CharacterController characterController;
+
+    private void Awake()
+    {
+        characterController = GetComponent<CharacterController>();
+    }
+
     private void Start()
     {
         weapon.onReload.AddListener(OnReload);
@@ -43,7 +50,8 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime;
-        transform.Translate(movement);
+
+        characterController.Move(transform.TransformDirection(movement));
 
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
@@ -175,7 +183,7 @@ public class Weapon : MonoBehaviour
         recoilBody.localRotation = Quaternion.Euler(recoilValue, 0, 0);
         recoilBody.localPosition = Vector3.forward * recoilValue * recoilPower;
         recoilValue = Mathf.Lerp(recoilValue, 0, Time.deltaTime * 10);
-        textUI.text = currentAmmo.ToString()+ "/" + maxAmmo.ToString();
+        textUI.text = currentAmmo.ToString() + "/" + maxAmmo.ToString();
     }
 
     public void SetFiring(bool isFiring)
@@ -238,7 +246,7 @@ public class Bullet : MonoBehaviour
     public float lifetime = 5f;
     public GameObject impactEffect;
     public GameObject bloodEffect;
-    
+
 
     float time;
 
@@ -280,7 +288,7 @@ public class Bullet : MonoBehaviour
         {
             HitDestroy();
         }
-        
+
     }
 
     public void HitDestroy()

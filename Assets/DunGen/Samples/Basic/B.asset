@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e228b45736a8cf4ea000616e628a4dd, type: 3}
-  m_Name: Basic
+  m_Name: B
   m_EditorClassIdentifier: 
   globalPropGroupID_obsolete: 
   globalPropRanges_obsolete: []
@@ -33,7 +33,7 @@ MonoBehaviour:
   Nodes:
   - Graph: {fileID: 11400000}
     TileSets:
-    - {fileID: 11400000, guid: 7d1a4355e404338428349a370803fb53, type: 2}
+    - {fileID: 11400000, guid: 40298ca808ce0e04fa1a6c9b781e6d54, type: 2}
     NodeType: 1
     Position: 0
     Label: Start

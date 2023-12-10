@@ -77,4 +77,5 @@ MonoBehaviour:
     levelRange:
       Min: 1
       Max: 1
-  bossPrefab: {fileID: 0}
+  bossPrefab: {fileID: 7521192906746142365, guid: 8edfbcd2fb77ff643a2e7b87ce5c58c8,
+    type: 3}

@@ -110,7 +110,7 @@ MonoBehaviour:
   enemyConfigs: []
   activeEnemies: []
   isBossRoom: 0
-  battleArena: 1
+  battleArena: 0
   isPlaying: 0
   isCleared: 0
   roomDepth: 0

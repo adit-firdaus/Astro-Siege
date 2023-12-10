@@ -12,7 +12,7 @@ public class DungeonFloorConfig : ScriptableObject
     public int totalTreasureRoom = 1;
     public GameObject playerPrefab;
     public List<DungeonEnemyConfig> enemyConfigs = new List<DungeonEnemyConfig>();
-    public EnemyBoss bossPrefab;
+    public GameObject bossPrefab;
 
     public List<DungeonEnemyConfig> GetRooomEnemyConfig(int depth)
     {

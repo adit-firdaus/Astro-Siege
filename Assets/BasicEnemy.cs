@@ -45,6 +45,11 @@ public class BasicEnemy : Enemy
             return;
         }
 
+        if (!player)
+        {
+            return;
+        }
+
         if (player)
         {
             canAttackPlayer = Vector3.Distance(transform.position, player.transform.position) < attackRange;

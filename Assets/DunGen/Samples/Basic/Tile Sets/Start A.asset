@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4db6514a2e4e194bbd1c6bdae54f388, type: 3}
-  m_Name: Start Tiles
+  m_Name: Start A
   m_EditorClassIdentifier: 
   TileWeights:
     Weights:
-    - Value: {fileID: 100000, guid: f63507c37d6d6ac4ea09cdae63f91200, type: 3}
+    - Value: {fileID: 100000, guid: c5747c87a5dd3d641b0b4bbcedb0d69d, type: 3}
       MainPathWeight: 1
       BranchPathWeight: 1
       DepthWeightScale:
