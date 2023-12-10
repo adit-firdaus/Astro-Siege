@@ -8,11 +8,15 @@ public class RangedEnemy : Enemy
     public float detectionRange = 10f;
     public float attackRange = 5f;
     public float attackDamage = 10f;
-    public Weapon weapon;
-    public float shootInterval;
+    public float shootInterval = 2f;
     float shottTimer = 0f;
     public GameObject explosionPrefab;
     public Animator animator;
+    public GameObject BulletPrefabs;
+    public Transform pos;
+    public float bulletSpeed = 20;
+    public AudioSource As;
+    public AudioClip shootSound;
 
     bool playerInRange = false;
     bool canAttackPlayer = false;
@@ -21,12 +25,12 @@ public class RangedEnemy : Enemy
     {
         if (!player) return;
 
-        shottTimer += Time.deltaTime;
+        
 
         if (shottTimer >= shootInterval)
         {
-            //  animator.SetTrigger("Shoot");
             shottTimer = 0f;
+            Shoot();
         }
 
         playerInRange = Vector3.Distance(transform.position, player.transform.position) < detectionRange;
@@ -48,19 +52,26 @@ public class RangedEnemy : Enemy
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             rb.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5);
         }
+        if (canAttackPlayer)
+        {
+            shottTimer += Time.deltaTime;
+        }
+        
 
-        weapon.SetFiring(canAttackPlayer);
-
-        weapon.transform.LookAt(player.transform.position);
+        gameObject.transform.LookAt(player.transform.position);
     }
 
     public void Shoot()
     {
         if (canAttackPlayer)
         {
-            weapon.Fire();
+            Rigidbody rb = Instantiate(BulletPrefabs, pos.position, transform.rotation).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * bulletSpeed, ForceMode.Impulse);
+            animator.SetTrigger("isAttack");
+            As.PlayOneShot(shootSound);
         }
     }
+
 
     public override void OnDie()
     {

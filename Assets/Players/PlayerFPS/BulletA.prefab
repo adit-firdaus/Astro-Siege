@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6921971290055571330}
   - component: {fileID: 7140485938810948332}
   - component: {fileID: 7098787480038992224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BulletA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,6 +67,8 @@ MonoBehaviour:
   lifetime: 5
   impactEffect: {fileID: 6425030421422417030, guid: 5cd6dda3d6cbb3e43941a2dd2126399a,
     type: 3}
+  bloodEffect: {fileID: 882279740068297913, guid: fcd5f8f8449d2ee4da6550dfaf1da05a,
+    type: 3}
 --- !u!65 &7098787480038992224
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -90,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5190602938625040602}
   - component: {fileID: 2939523886581536274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -231,6 +231,7 @@ public class Bullet : MonoBehaviour
     public float damage = 10f;
     public float lifetime = 5f;
     public GameObject impactEffect;
+    public GameObject bloodEffect;
 
     float time;
 
@@ -264,13 +265,25 @@ public class Bullet : MonoBehaviour
             healthModule.TakeDamage(damage);
             healthModule.playImpactSound();
         };
-
-        HitDestroy();
+        if (other.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            HitEnemy();
+        }
+        else
+        {
+            HitDestroy();
+        }
+        
     }
 
     public void HitDestroy()
     {
         if (impactEffect) Instantiate(impactEffect, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+    public void HitEnemy()
+    {
+        Instantiate(bloodEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }
