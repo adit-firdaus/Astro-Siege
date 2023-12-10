@@ -70,7 +70,7 @@ MonoBehaviour:
     amountRange:
       Min: 1
       Max: 3
-    amountProbability: 0.607
+    amountProbability: 0
     depthRange:
       Min: 1
       Max: 999

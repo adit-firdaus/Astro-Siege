@@ -37,7 +37,14 @@ public class TankEnemy : Enemy
 
         if (player)
         {
-            canAttackPlayer = Vector3.Distance(transform.position, player.transform.position) < attackRange;
+           if( canAttackPlayer = Vector3.Distance(transform.position, player.transform.position) < attackRange)
+            {
+                if (!isAttacking)
+                {
+                    Attack();
+                }
+                
+            }
             // animator.SetBool("CanAttack", canAttackPlayer);
         }
         bool isOnce = false;
