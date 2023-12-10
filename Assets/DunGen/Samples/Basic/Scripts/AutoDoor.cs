@@ -59,7 +59,6 @@ namespace DunGen.Demo
 		public void SetState(bool open)
 		{
 			currentState = open ? DoorState.Opening : DoorState.Closing;
-			Debug.Log("Setting state to " + currentState);
 		}
 
 		[ButtonMethod]

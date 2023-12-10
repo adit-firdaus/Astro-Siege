@@ -3,42 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class BasicEnemy : MonoBehaviour
+public class BasicEnemy : Enemy
 {
     public int level = 1;
-    public GameObject player;
     public float moveSpeed = 1f;
     public float attackRange = 1f;
     public float health = 200;
     public float damage = 50;
 
-    public PlayerTriggerArea attackArea;
+    public MeleeDamage meleeArea;
     public Vector3 moveDirection;
     public Animator animator;
+    public bool isAttacking = false;
 
     public bool canAttackPlayer = false;
 
     private void Start()
     {
-        InitStats();
-    }
-
-    public void InitStats()
-    {
         health = 200 * Mathf.Pow(level, 2);
         damage = 50 * level;
     }
 
+    private void OnDrawGizmos()
+    {
+        // Draw semuanya
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        // Draw hanya ketika player ada
+        if (player)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, player.transform.position);
+        }
+    }
+
     private void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
 
         if (player)
         {
             canAttackPlayer = Vector3.Distance(transform.position, player.transform.position) < attackRange;
             animator.SetBool("CanAttack", canAttackPlayer);
+
         }
 
-        if (!canAttackPlayer) Chase();
+        if (canAttackPlayer == false && isAttacking == false)
+        {
+            Chase();
+        }
+
     }
 
     public void Patrol()
@@ -63,19 +81,31 @@ public class BasicEnemy : MonoBehaviour
 
     public void Attack()
     {
-        if (attackArea.playerInTriggerArea)
+        isAttacking = true;
+        meleeArea.Attack(damage);
+        // Debug.Log("ngen");
+    }
+
+    public void endAttack()
+    {
+        isAttacking = false;
+        // Debug.Log("tot");
+    }
+
+    public override void OnDie()
+    {
+        base.OnDie();
+
+        if (!isDead)
         {
-            // attackArea.player.TakeDamage(damage, actor);
+            Death();
+
+            isDead = true;
         }
     }
 
-    public void Die()
+    public void Death()
     {
         animator.SetTrigger("Dead");
-    }
-
-    public void DestroyEnemy()
-    {
-        Destroy(gameObject);
     }
 }

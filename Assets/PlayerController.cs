@@ -3,81 +3,133 @@ using UnityEngine;
 using UnityEngine.Events;
 using MyBox;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
     public bool lockCursor = true;
     public float moveSpeed = 5.0f;
-    public float jumpSpeed = 1.0f;
     public float sensitivity = 2.0f;
     public Transform head;
     public Weapon weapon;
-
-    CharacterController characterController;
+    public GameObject MeleePrefabs;
+    public float MeleeCooldown;
+    private bool isMelee;
     private float rotationX = 0;
+    public AudioSource AttackSFX;
+    public AudioClip PunchSound;
+    public Animator anim;
+    public bool busy = false;
+    private float slideTime;
+    private Vector3 baseXY;
+    public GameObject Slide;
 
-    Vector3 velocity;
-
-    void Awake()
-    {
-        characterController = GetComponent<CharacterController>();
-    }
 
     private void Start()
     {
+        weapon.onReload.AddListener(OnReload);
+
         if (lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
+        baseXY = transform.position;
     }
 
-    void LateUpdate()
+    void Update()
     {
-        velocity.y += Physics.gravity.y * Time.deltaTime;
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(horizontal, 0, vertical) * moveSpeed * Time.deltaTime;
+        transform.Translate(movement);
 
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = 7.5f;
+            anim.SetTrigger("sprint");
+            busy = true;
+        }
+        else
+        {
+            moveSpeed = 5f;
+
+            busy = false;
+        }
+        if (horizontal != 0 || vertical != 0)
+        {
+            anim.SetBool("isWalk", true);
+        }
+        else
+        {
+            anim.SetBool("isWalk", false);
+        }
+        /*
+        if (Input.GetKey(KeyCode.LeftControl) && !busy && slideTime > 0)
+        {
+            anim.SetTrigger("melee");
+            slideTime -= Time.deltaTime;
+            busy = true;
+            Slide.SetActive(true);
+            moveSpeed = 15f;
+            transform.position = new Vector3(transform.position.x, baseXY.y - 0.5f, transform.position.z);
+        }
+        else
+        {
+            moveSpeed = 5f;
+            slideTime = 1f;
+            Slide.SetActive(false);
+            transform.position = new Vector3(transform.position.x, baseXY.y, transform.position.z);
+        }
+        */
         rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90, 90);
+        rotationX = Mathf.Clamp(rotationX, -90, 120);
 
         head.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, mouseX, 0);
 
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 move = transform.right * horizontal + transform.forward * vertical;
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            move *= 2;
-        }
-
-        velocity.x = move.x * moveSpeed;
-        velocity.z = move.z * moveSpeed;
-
-        if (characterController.isGrounded)
-        {
-            velocity.y = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            velocity.y = jumpSpeed;
-        }
-
         if (weapon)
         {
-            weapon.SetFiring(Input.GetMouseButton(0));
+            if (!busy)
+            {
+                weapon.SetFiring(Input.GetMouseButton(0));
+            }
 
-            if (Input.GetKeyDown(KeyCode.R))
+
+            if (Input.GetKeyDown(KeyCode.R) && !busy)
             {
                 weapon.Reload();
+                busy = true;
+
+            }
+            if (Input.GetMouseButton(1) && isMelee == false)
+            {
+                StartCoroutine("MeleeAttack");
+                isMelee = true;
             }
         }
+        else
+        {
+            ///KLO GK PUNYA WEAPON
+        }
+    }
 
-        characterController.Move(velocity * Time.deltaTime);
+    IEnumerator MeleeAttack()
+    {
+        anim.SetTrigger("melee");
+        yield return new WaitForSeconds(0.7f);
+        AttackSFX.PlayOneShot(PunchSound);
+        MeleePrefabs.SetActive(true);
+        yield return new WaitForSeconds(MeleeCooldown);
+        MeleePrefabs.SetActive(false);
+        isMelee = false;
+    }
+
+    public void OnReload(bool state)
+    {
+        PlayerController PC = FindObjectOfType<PlayerController>();
+        PC.anim.SetBool("Reload", state);
+        PC.busy = state;
     }
 }
 
@@ -91,18 +143,22 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public Transform recoilBody;
     public UnityEvent<Bullet> onShoot;
+    public UnityEvent<bool> onReload;
+    public float reloadSpeed = 2f;
 
     [Layer] public int bulletLayer;
     public Bullet bulletPrefab;
+    public AudioSource As;
+    public AudioClip RifleSound;
+    public AudioClip ReloadSound;
 
-    public int maxAmmo = 10; // Maximum ammo capacity
+    public int maxAmmo = 30; // Maximum ammo capacity
     public int currentAmmo; // Current ammo count
-
-    Vector3 previousfirePointPosition;
-    Vector3 speedDelta;
-
+    private bool isReloading;
     private void Start()
     {
+
+
         currentAmmo = maxAmmo; // Initialize ammo count to maximum at the start
 
         // Start the shooting coroutine when the weapon is enabled
@@ -110,12 +166,6 @@ public class Weapon : MonoBehaviour
     }
 
     private void Update()
-    {
-        speedDelta = (firePoint.position - previousfirePointPosition) / Time.deltaTime;
-        previousfirePointPosition = firePoint.position;
-    }
-
-    private void LateUpdate()
     {
         recoilBody.localRotation = Quaternion.Euler(recoilValue, 0, 0);
         recoilBody.localPosition = Vector3.forward * recoilValue * recoilPower;
@@ -138,8 +188,7 @@ public class Weapon : MonoBehaviour
                 yield return new WaitForSeconds(1f / fireRate);
 
             }
-
-            if (currentAmmo <= 0)
+            if (currentAmmo <= 0 && isReloading == false)
             {
                 Reload();
             }
@@ -151,17 +200,29 @@ public class Weapon : MonoBehaviour
     public void Fire()
     {
         Bullet bullet = Instantiate(bulletPrefab.gameObject, firePoint.position, firePoint.rotation).GetComponent<Bullet>();
-        bullet.Shoot(firePoint.forward * power + speedDelta);
-        bullet.gameObject.layer = bulletLayer;
+        bullet.Shoot(power);
+        bullet.gameObject.SetLayerRecursively(bulletLayer);
         recoilValue = -1f;
-
         onShoot.Invoke(bullet);
+        As.PlayOneShot(RifleSound);
     }
 
     [ContextMenu("Reload")]
     public void Reload()
     {
-        currentAmmo = maxAmmo; // Refill ammo to maximum
+        Debug.Log("Reloading...");
+        isReloading = true;
+        onReload.Invoke(true);
+        As.PlayOneShot(ReloadSound);
+        Invoke("FullAmmo", reloadSpeed);
+
+    }
+    public void FullAmmo()
+    {
+        Debug.Log("Reloaded!");
+        isReloading = false;
+        currentAmmo = maxAmmo;
+        onReload.Invoke(false);
     }
 }
 
@@ -180,9 +241,9 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void Shoot(Vector3 direction)
+    public void Shoot(float power)
     {
-        rb.velocity = direction;
+        rb.velocity = transform.forward * power;
     }
 
     private void Update()
@@ -198,7 +259,11 @@ public class Bullet : MonoBehaviour
     {
         HealthModule healthModule = other.gameObject.GetComponentInParent<HealthModule>();
 
-        if (healthModule != null) healthModule.TakeDamage(damage);
+        if (healthModule != null)
+        {
+            healthModule.TakeDamage(damage);
+            healthModule.playImpactSound();
+        };
 
         HitDestroy();
     }
@@ -206,7 +271,6 @@ public class Bullet : MonoBehaviour
     public void HitDestroy()
     {
         if (impactEffect) Instantiate(impactEffect, transform.position, transform.rotation);
-
         Destroy(gameObject);
     }
 }

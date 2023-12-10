@@ -177,6 +177,9 @@ GameObject:
   m_Component:
   - component: {fileID: 707379269}
   - component: {fileID: 707379271}
+  - component: {fileID: 707379274}
+  - component: {fileID: 707379273}
+  - component: {fileID: 707379272}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -241,8 +244,50 @@ MonoBehaviour:
     Root: {fileID: 0}
     DungeonFlow: {fileID: 11400000, guid: 642782ffcddad5a489ed5c9b6b2e7685, type: 2}
     fileVersion: 1
-  GenerateOnStart: 1
+  GenerateOnStart: 0
   Root: {fileID: 707379268}
+--- !u!114 &707379272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707379268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4801154c5da0dd428b08d02ad5b1745, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runtimeDungeon: {fileID: 707379271}
+  dungeonFloorConfig: {fileID: 11400000, guid: 4e6dfb9e36bcf494f9968e21f1bf9dd9, type: 2}
+  rooms: []
+--- !u!114 &707379273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707379268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c601c6b8b1ce3fd4bbb64b6ec30d8ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &707379274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707379268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e745d01adf0d296419e5e7c85d55c169, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connections: []
+  tiles: []
+  doorPrefab: {fileID: 0}
 --- !u!1 &892164708
 GameObject:
   m_ObjectHideFlags: 0
