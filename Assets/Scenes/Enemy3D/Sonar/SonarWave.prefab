@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6006005443222127095}
   - component: {fileID: 4576033018324432152}
   - component: {fileID: 3297908082287245255}
-  - component: {fileID: 1185574400767937746}
   m_Layer: 9
   m_Name: SonarWave
   m_TagString: Untagged
@@ -228,19 +227,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1185574400767937746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6106759277609352840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99e2089aea3ebda469247e75c78699a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
-  lifetime: 5
-  impactEffect: {fileID: 0}
-  bloodEffect: {fileID: 0}

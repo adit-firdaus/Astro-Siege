@@ -47,6 +47,7 @@ public class SonarWave : MonoBehaviour
             Debug.Log("Triggered");
             GameObject.FindObjectOfType<Flashbang>().Flashbanged();
             Destroy(gameObject);
+
         }
 
     }
